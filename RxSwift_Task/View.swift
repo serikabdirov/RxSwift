@@ -14,12 +14,7 @@ class View: UIView {
     
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
-    
-    var emailCorrectLabel: UILabel!
-    var passwordCorrectLabel: UILabel!
-    
-    var stackView: UIStackView!
-    
+
     var nextButton: UIButton!
 
     override init(frame: CGRect) {
@@ -34,9 +29,21 @@ class View: UIView {
     }
     
     func setupViews() {
+
+        scrollView = {
+            let scrollView = UIScrollView()
+            scrollView.showsVerticalScrollIndicator = false
+            scrollView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+            return scrollView
+        }()
+
         emailTextField = {
             let textField = UITextField()
             textField.placeholder = "Enter email"
+            textField.borderStyle = .roundedRect
+            textField.keyboardType = .emailAddress
+            textField.textContentType = .emailAddress
+            textField.returnKeyType = .next
             textField.translatesAutoresizingMaskIntoConstraints = false
             return textField
         }()
@@ -44,65 +51,33 @@ class View: UIView {
         passwordTextField = {
             let textField = UITextField()
             textField.placeholder = "Enter password"
+            textField.textContentType = .password
             textField.isSecureTextEntry = true
+            textField.borderStyle = .roundedRect
             textField.translatesAutoresizingMaskIntoConstraints = false
             return textField
         }()
         
-        emailCorrectLabel = {
-            let label = UILabel()
-            label.text = "Email incorrect"
-            label.tintColor = .red
-//            label.isHidden = true
-            label.translatesAutoresizingMaskIntoConstraints = false
-
-            return label
-        }()
-        
-        passwordCorrectLabel = {
-            let label = UILabel()
-            label.text = "Password incorrect"
-            label.tintColor = .red
-//            label.isHidden = true
-            label.translatesAutoresizingMaskIntoConstraints = false
-
-            return label
-        }()
-        
-        stackView = {
-            let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField])
-            stackView.axis = .vertical
-            stackView.distribution = .fillProportionally
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-
-            return stackView
-        }()
-        
         nextButton = {
-            let button = UIButton()
+            let button = Button()
             button.isEnabled = false
             button.setTitle("incorrect data", for: .disabled)
             button.setTitleColor(.gray, for: .disabled)
             button.setTitle("Next", for: .normal)
             button.setTitleColor(.red, for: .normal)
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = 5
             button.translatesAutoresizingMaskIntoConstraints = false
-
             return button
         }()
-        
+
         addSubview(emailTextField)
         addSubview(passwordTextField)
         addSubview(nextButton)
         
     }
     
-    func setConstraints() {
-//        stackView.snp.makeConstraints { make in
-//            make.top.equalTo(safeAreaLayoutGuide)
-//            make.leading.equalTo(12)
-//            make.trailing.equalTo(-12)
-//        }
-        
+    func setConstraints() {        
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(200)
             make.leading.equalTo(12)
@@ -119,7 +94,7 @@ class View: UIView {
             make.top.equalTo(passwordTextField).inset(40)
             make.leading.equalTo(12)
             make.trailing.equalTo(-12)
-            make.bottom.equalTo(safeAreaLayoutGuide).priority(.low)
+            make.height.equalTo(34)
         }
     }
 

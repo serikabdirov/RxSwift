@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5A4C4DE13B371A38868C51BE /* Pods_RxSwift_Task.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2515767C99DF2B0E04F91FFB /* Pods_RxSwift_Task.framework */; };
+		7281731928B4F013004BAD82 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281731828B4F013004BAD82 /* SecondViewController.swift */; };
+		7281731B28B4FCF4004BAD82 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281731A28B4FCF4004BAD82 /* Button.swift */; };
 		B295124528B3BC7300BEDA22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B295124428B3BC7300BEDA22 /* AppDelegate.swift */; };
 		B295124728B3BC7300BEDA22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B295124628B3BC7300BEDA22 /* SceneDelegate.swift */; };
 		B295124928B3BC7300BEDA22 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B295124828B3BC7300BEDA22 /* ViewController.swift */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		2515767C99DF2B0E04F91FFB /* Pods_RxSwift_Task.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxSwift_Task.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7281731828B4F013004BAD82 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		7281731A28B4FCF4004BAD82 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B163699969FE13817A9EE9A1 /* Pods-RxSwift_Task.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwift_Task.debug.xcconfig"; path = "Target Support Files/Pods-RxSwift_Task/Pods-RxSwift_Task.debug.xcconfig"; sourceTree = "<group>"; };
 		B295124128B3BC7300BEDA22 /* RxSwift_Task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwift_Task.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B295124428B3BC7300BEDA22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +81,8 @@
 				B295124628B3BC7300BEDA22 /* SceneDelegate.swift */,
 				B295124828B3BC7300BEDA22 /* ViewController.swift */,
 				B295125828B3C23F00BEDA22 /* View.swift */,
+				7281731A28B4FCF4004BAD82 /* Button.swift */,
+				7281731828B4F013004BAD82 /* SecondViewController.swift */,
 				B295124A28B3BC7300BEDA22 /* Main.storyboard */,
 				B295124D28B3BC7700BEDA22 /* Assets.xcassets */,
 				B295124F28B3BC7700BEDA22 /* LaunchScreen.storyboard */,
@@ -210,8 +216,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B295125928B3C23F00BEDA22 /* View.swift in Sources */,
+				7281731B28B4FCF4004BAD82 /* Button.swift in Sources */,
 				B295124928B3BC7300BEDA22 /* ViewController.swift in Sources */,
 				B295124528B3BC7300BEDA22 /* AppDelegate.swift in Sources */,
+				7281731928B4F013004BAD82 /* SecondViewController.swift in Sources */,
 				B295124728B3BC7300BEDA22 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
