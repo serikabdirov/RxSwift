@@ -8,18 +8,11 @@
 import UIKit
 import SnapKit
 
-class ContainerView: UIView {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        endEditing(true)
-    }
-}
-
 class View: UIView {
+    private var containerView: UIView!
+    private var stackView: UIStackView!
     
     var scrollView: UIScrollView!
-    var containerView: ContainerView!
-    
-    var stackView: UIStackView!
     
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
@@ -37,20 +30,18 @@ class View: UIView {
         fatalError()
     }
     
-    func setupViews() {
+    private func setupViews() {
         scrollView = {
             let scrollView = UIScrollView()
             scrollView.showsVerticalScrollIndicator = false
-            scrollView.contentMode = .center
-            scrollView.contentInset = UIEdgeInsets.zero
-            scrollView.isScrollEnabled = false
-            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            scrollView.keyboardDismissMode = .onDrag
+            scrollView.alwaysBounceVertical = true
+            scrollView.contentInsetAdjustmentBehavior = .never
             return scrollView
         }()
         
         containerView = {
-            let view = ContainerView()
-            view.translatesAutoresizingMaskIntoConstraints = false
+            let view = UIView()
             return view
         }()
         
@@ -58,7 +49,6 @@ class View: UIView {
             let stackView = UIStackView()
             stackView.axis = .vertical
             stackView.distribution = .equalSpacing
-            stackView.translatesAutoresizingMaskIntoConstraints = false
             return stackView
         }()
 
@@ -69,7 +59,6 @@ class View: UIView {
             textField.keyboardType = .emailAddress
             textField.textContentType = .emailAddress
             textField.returnKeyType = .next
-            textField.translatesAutoresizingMaskIntoConstraints = false
             return textField
         }()
         
@@ -79,20 +68,20 @@ class View: UIView {
             textField.textContentType = .password
             textField.isSecureTextEntry = true
             textField.borderStyle = .roundedRect
-            textField.translatesAutoresizingMaskIntoConstraints = false
             return textField
         }()
         
         nextButton = {
-            let button = Button()
+            let button = UIButton()
             button.isEnabled = false
             button.setTitle("incorrect data", for: .disabled)
             button.setTitleColor(.gray, for: .disabled)
+            button.setBackgroundColor(.red, for: .disabled)
             button.setTitle("Next", for: .normal)
             button.setTitleColor(.red, for: .normal)
+            button.setBackgroundColor(.green, for: .normal)
             button.layer.borderWidth = 1
             button.layer.cornerRadius = 5
-            button.translatesAutoresizingMaskIntoConstraints = false
             return button
         }()
         
@@ -100,21 +89,20 @@ class View: UIView {
         scrollView.addSubview(containerView)
         containerView.addSubview(stackView)
         
-        
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(nextButton)
 
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
         }
         
         containerView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.contentLayoutGuide)
-            make.width.height.equalTo(scrollView.frameLayoutGuide)
+            make.edges.width.equalToSuperview()
+            make.height.greaterThanOrEqualTo(scrollView.frameLayoutGuide)
         }
         
         stackView.snp.makeConstraints { make in
