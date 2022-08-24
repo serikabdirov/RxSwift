@@ -14,6 +14,8 @@ class View: UIView {
     
     var scrollView: UIScrollView!
     
+    var bigTextLabel: UILabel!
+    
     var emailTextField: UITextField!
     var fullNameTextField: UITextField!
     var dateTextField: UITextField!
@@ -45,6 +47,13 @@ class View: UIView {
         containerView = {
             let view = UIView()
             return view
+        }()
+        
+        bigTextLabel = {
+            let label = UILabel()
+            label.text = "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT"
+            label.numberOfLines = 0
+            return label
         }()
         
         stackView = {
@@ -113,6 +122,7 @@ class View: UIView {
         
         addSubview(scrollView)
         scrollView.addSubview(containerView)
+        containerView.addSubview(bigTextLabel)
         containerView.addSubview(stackView)
         
         stackView.addArrangedSubview(emailTextField)
@@ -134,8 +144,13 @@ class View: UIView {
             make.height.greaterThanOrEqualTo(scrollView.frameLayoutGuide)
         }
         
+        bigTextLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(stackView.snp.top)
+        }
+        
         stackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
             make.leading.equalTo(12)
             make.trailing.equalTo(-12)
             make.height.greaterThanOrEqualTo(110)
