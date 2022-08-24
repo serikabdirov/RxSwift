@@ -10,7 +10,7 @@ import UIKit
 class Button: UIButton {
     override var isEnabled: Bool {
         didSet {
-            backgroundColor = isEnabled ? .gray : .red
+            backgroundColor = isEnabled ? .green : .red
         }
     }
 }

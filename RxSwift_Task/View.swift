@@ -8,9 +8,18 @@
 import UIKit
 import SnapKit
 
+class ContainerView: UIView {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        endEditing(true)
+    }
+}
+
 class View: UIView {
     
     var scrollView: UIScrollView!
+    var containerView: ContainerView!
+    
+    var stackView: UIStackView!
     
     var emailTextField: UITextField!
     var passwordTextField: UITextField!
@@ -29,12 +38,28 @@ class View: UIView {
     }
     
     func setupViews() {
-
         scrollView = {
             let scrollView = UIScrollView()
             scrollView.showsVerticalScrollIndicator = false
-            scrollView.contentInset = UIEdgeInsets(top: 30, left: 0, bottom: 30, right: 0)
+            scrollView.contentMode = .center
+            scrollView.contentInset = UIEdgeInsets.zero
+            scrollView.isScrollEnabled = false
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
             return scrollView
+        }()
+        
+        containerView = {
+            let view = ContainerView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+        
+        stackView = {
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.distribution = .equalSpacing
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            return stackView
         }()
 
         emailTextField = {
@@ -70,31 +95,33 @@ class View: UIView {
             button.translatesAutoresizingMaskIntoConstraints = false
             return button
         }()
-
-        addSubview(emailTextField)
-        addSubview(passwordTextField)
-        addSubview(nextButton)
         
+        addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(stackView)
+        
+        
+        stackView.addArrangedSubview(emailTextField)
+        stackView.addArrangedSubview(passwordTextField)
+        stackView.addArrangedSubview(nextButton)
+
     }
     
-    func setConstraints() {        
-        emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(200)
-            make.leading.equalTo(12)
-            make.trailing.equalTo(-12)
+    func setConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
         
-        passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField).inset(40)
-            make.leading.equalTo(12)
-            make.trailing.equalTo(-12)
+        containerView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.width.height.equalTo(scrollView.frameLayoutGuide)
         }
         
-        nextButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField).inset(40)
+        stackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
             make.leading.equalTo(12)
             make.trailing.equalTo(-12)
-            make.height.equalTo(34)
+            make.height.equalTo(110)
         }
     }
 
