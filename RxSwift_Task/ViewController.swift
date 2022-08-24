@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     private var myView: View!
     
-    private var disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func loadView() {
         myView = View()
@@ -38,20 +38,30 @@ class ViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    private static func validateEmailAndPassword(_ enteredEmail: String, _ enteredPassword: String) -> Bool {
+    private static func validateEmail(_ enteredEmail: String) -> Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
-        return emailPredicate.evaluate(with: enteredEmail) && enteredPassword.count >= 8
+        return emailPredicate.evaluate(with: enteredEmail)
+    }
+    
+    private static func validatePassword(_ enteredPassword: String) -> Bool {
+        enteredPassword.count >= 8
     }
 
     private func rx() {
-        Observable.combineLatest(
-            myView.emailTextField.rx.text.orEmpty,
-            myView.passwordTextField.rx.text.orEmpty
-        ).map {
-            Self.validateEmailAndPassword($0, $1)
-        }.bind(to: myView.nextButton.rx.isEnabled)
-        .disposed(by: disposeBag)
+        
+        let emailValidate = myView.emailTextField.rx.text.orEmpty.map {
+            Self.validateEmail($0)
+        }
+        
+        let passwordValidate = myView.passwordTextField.rx.text.orEmpty.map {
+            Self.validatePassword($0)
+        }
+        
+        Observable.combineLatest(emailValidate, passwordValidate)
+            .map { $0 && $1 }
+            .bind(to: myView.nextButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 
     @objc private func nextViewController() {

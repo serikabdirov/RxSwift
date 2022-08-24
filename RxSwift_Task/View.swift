@@ -73,6 +73,7 @@ class View: UIView {
         
         nextButton = {
             let button = UIButton()
+            button.clipsToBounds = true
             button.isEnabled = false
             button.setTitle("incorrect data", for: .disabled)
             button.setTitleColor(.gray, for: .disabled)
