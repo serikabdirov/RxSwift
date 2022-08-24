@@ -17,6 +17,7 @@ class View: UIView {
     var emailTextField: UITextField!
     var fullNameTextField: UITextField!
     var dateTextField: UITextField!
+    var toggle: UISwitch!
 
     var nextButton: UIButton!
 
@@ -90,6 +91,11 @@ class View: UIView {
             return textField
         }()
         
+        toggle = {
+            let s = UISwitch()
+            return s
+        }()
+        
         nextButton = {
             let button = UIButton()
             button.clipsToBounds = true
@@ -112,6 +118,7 @@ class View: UIView {
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(fullNameTextField)
         stackView.addArrangedSubview(dateTextField)
+        stackView.addArrangedSubview(toggle)
         
         containerView.addSubview(nextButton)
 

@@ -14,8 +14,6 @@ class ViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let datePicker = UIDatePicker()
-    
-    var isCorrect = ReplaySubject<Bool>.create(bufferSize: 1)
 
     override func loadView() {
         myView = View()

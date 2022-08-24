@@ -23,12 +23,14 @@ extension ViewController {
             Self.validateDate($0)
         }
         
+        let toggleValidate = myView.toggle.rx.value
+        
         let dateChange = datePicker.rx.date.map {
             Self.formatter($0)
         }
         
-        Observable.combineLatest(emailValidate, fullNameValidate, dateValidate)
-            .map { $0 && $1 && $2}
+        Observable.combineLatest(emailValidate, fullNameValidate, dateValidate, toggleValidate)
+            .map { $0 && $1 && $2 && $3}
             .bind(to: myView.nextButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
