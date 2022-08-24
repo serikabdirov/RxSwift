@@ -15,7 +15,8 @@ class View: UIView {
     var scrollView: UIScrollView!
     
     var emailTextField: UITextField!
-    var passwordTextField: UITextField!
+    var fullNameTextField: UITextField!
+    var dateTextField: UITextField!
 
     var nextButton: UIButton!
 
@@ -54,19 +55,37 @@ class View: UIView {
 
         emailTextField = {
             let textField = UITextField()
+            textField.tag = 0
+            textField.layer.borderWidth = 1
+            textField.layer.cornerRadius = 5
+            textField.layer.borderColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
             textField.placeholder = "Enter email"
             textField.borderStyle = .roundedRect
             textField.keyboardType = .emailAddress
             textField.textContentType = .emailAddress
-            textField.returnKeyType = .next
             return textField
         }()
         
-        passwordTextField = {
+        fullNameTextField = {
             let textField = UITextField()
-            textField.placeholder = "Enter password"
-            textField.textContentType = .password
-            textField.isSecureTextEntry = true
+            textField.tag = 1
+            textField.layer.borderWidth = 1
+            textField.layer.cornerRadius = 5
+            textField.layer.borderColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+            textField.placeholder = "Enter full name"
+            textField.textContentType = .name
+            textField.borderStyle = .roundedRect
+            return textField
+        }()
+        
+        dateTextField = {
+            let textField = UITextField()
+            textField.tag = 2
+            textField.layer.borderWidth = 1
+            textField.layer.cornerRadius = 5
+            textField.layer.borderColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+            textField.placeholder = "Enter date"
+            textField.textContentType = .dateTime
             textField.borderStyle = .roundedRect
             return textField
         }()
@@ -91,8 +110,10 @@ class View: UIView {
         containerView.addSubview(stackView)
         
         stackView.addArrangedSubview(emailTextField)
-        stackView.addArrangedSubview(passwordTextField)
-        stackView.addArrangedSubview(nextButton)
+        stackView.addArrangedSubview(fullNameTextField)
+        stackView.addArrangedSubview(dateTextField)
+        
+        containerView.addSubview(nextButton)
 
     }
     
@@ -110,7 +131,14 @@ class View: UIView {
             make.centerY.equalToSuperview()
             make.leading.equalTo(12)
             make.trailing.equalTo(-12)
-            make.height.equalTo(110)
+            make.height.greaterThanOrEqualTo(110)
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.leading.equalTo(12)
+            make.trailing.equalTo(-12)
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(30)
         }
     }
 

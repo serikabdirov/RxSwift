@@ -17,6 +17,9 @@
 		B295124E28B3BC7700BEDA22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B295124D28B3BC7700BEDA22 /* Assets.xcassets */; };
 		B295125128B3BC7700BEDA22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B295124F28B3BC7700BEDA22 /* LaunchScreen.storyboard */; };
 		B295125928B3C23F00BEDA22 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = B295125828B3C23F00BEDA22 /* View.swift */; };
+		B2BDB86C28B646FF0006E764 /* ViewController + Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BDB86B28B646FF0006E764 /* ViewController + Validate.swift */; };
+		B2BDB87028B648A80006E764 /* ViewController + Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BDB86F28B648A80006E764 /* ViewController + Rx.swift */; };
+		B2BDB87228B64FD80006E764 /* ViewController + DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BDB87128B64FD80006E764 /* ViewController + DatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		B295125028B3BC7700BEDA22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B295125228B3BC7700BEDA22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B295125828B3C23F00BEDA22 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		B2BDB86B28B646FF0006E764 /* ViewController + Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController + Validate.swift"; sourceTree = "<group>"; };
+		B2BDB86F28B648A80006E764 /* ViewController + Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController + Rx.swift"; sourceTree = "<group>"; };
+		B2BDB87128B64FD80006E764 /* ViewController + DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController + DatePicker.swift"; sourceTree = "<group>"; };
 		BD27F3AF245167A19C454D81 /* Pods-RxSwift_Task.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwift_Task.release.xcconfig"; path = "Target Support Files/Pods-RxSwift_Task/Pods-RxSwift_Task.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,8 +85,7 @@
 			children = (
 				B295124428B3BC7300BEDA22 /* AppDelegate.swift */,
 				B295124628B3BC7300BEDA22 /* SceneDelegate.swift */,
-				B295124828B3BC7300BEDA22 /* ViewController.swift */,
-				B295125828B3C23F00BEDA22 /* View.swift */,
+				B2BDB86E28B6472F0006E764 /* ViewController */,
 				7281731A28B4FCF4004BAD82 /* Button.swift */,
 				7281731828B4F013004BAD82 /* SecondViewController.swift */,
 				B295124A28B3BC7300BEDA22 /* Main.storyboard */,
@@ -89,6 +94,18 @@
 				B295125228B3BC7700BEDA22 /* Info.plist */,
 			);
 			path = RxSwift_Task;
+			sourceTree = "<group>";
+		};
+		B2BDB86E28B6472F0006E764 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B295125828B3C23F00BEDA22 /* View.swift */,
+				B295124828B3BC7300BEDA22 /* ViewController.swift */,
+				B2BDB86B28B646FF0006E764 /* ViewController + Validate.swift */,
+				B2BDB86F28B648A80006E764 /* ViewController + Rx.swift */,
+				B2BDB87128B64FD80006E764 /* ViewController + DatePicker.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		B79AA405F7607F7FEDF70F82 /* Pods */ = {
@@ -215,12 +232,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2BDB87028B648A80006E764 /* ViewController + Rx.swift in Sources */,
 				B295125928B3C23F00BEDA22 /* View.swift in Sources */,
 				7281731B28B4FCF4004BAD82 /* Button.swift in Sources */,
 				B295124928B3BC7300BEDA22 /* ViewController.swift in Sources */,
 				B295124528B3BC7300BEDA22 /* AppDelegate.swift in Sources */,
 				7281731928B4F013004BAD82 /* SecondViewController.swift in Sources */,
+				B2BDB86C28B646FF0006E764 /* ViewController + Validate.swift in Sources */,
 				B295124728B3BC7300BEDA22 /* SceneDelegate.swift in Sources */,
+				B2BDB87228B64FD80006E764 /* ViewController + DatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

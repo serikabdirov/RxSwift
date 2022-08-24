@@ -10,10 +10,12 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
+    var myView: View!
+    let disposeBag = DisposeBag()
     
-    private var myView: View!
+    let datePicker = UIDatePicker()
     
-    private let disposeBag = DisposeBag()
+    var isCorrect = ReplaySubject<Bool>.create(bufferSize: 1)
 
     override func loadView() {
         myView = View()
@@ -24,44 +26,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         myView.emailTextField.delegate = self
-        myView.passwordTextField.delegate = self
+        myView.fullNameTextField.delegate = self
+        myView.dateTextField.delegate = self
                 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
 
         myView.nextButton.addTarget(self, action: #selector(nextViewController), for: .touchUpInside)
+        createDatePicker()
         rx()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.endEditing(true)
-    }
-    
-    private static func validateEmail(_ enteredEmail: String) -> Bool {
-        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
-        return emailPredicate.evaluate(with: enteredEmail)
-    }
-    
-    private static func validatePassword(_ enteredPassword: String) -> Bool {
-        enteredPassword.count >= 8
-    }
-
-    private func rx() {
-        
-        let emailValidate = myView.emailTextField.rx.text.orEmpty.map {
-            Self.validateEmail($0)
-        }
-        
-        let passwordValidate = myView.passwordTextField.rx.text.orEmpty.map {
-            Self.validatePassword($0)
-        }
-        
-        Observable.combineLatest(emailValidate, passwordValidate)
-            .map { $0 && $1 }
-            .bind(to: myView.nextButton.rx.isEnabled)
-            .disposed(by: disposeBag)
     }
 
     @objc private func nextViewController() {
@@ -86,12 +64,20 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITextFieldDelegate {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.layer.borderColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+        return true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
-        textField.resignFirstResponder()
-        if textField == myView.emailTextField {
-            myView.passwordTextField.becomeFirstResponder()
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
         }
+        
         return true
         
     }
