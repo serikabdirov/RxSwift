@@ -19,6 +19,6 @@ extension ViewController {
     }
     
     static func validateDate(_ enteredDate: Date) -> Bool {
-        Calendar.current.dateComponents([.day], from: enteredDate, to: .now).day! >= 18 * 365
+        return Calendar.current.dateComponents([.year], from: enteredDate, to: .now).year! >= 18
     }
 }

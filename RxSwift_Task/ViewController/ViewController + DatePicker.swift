@@ -13,8 +13,7 @@ extension ViewController {
         toolbar.sizeToFit()
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneButtonTapped))
-        toolbar.setItems([doneButton], animated: false)
-        
+        toolbar.items = [doneButton]
         return toolbar
     }
     

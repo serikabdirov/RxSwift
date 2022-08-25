@@ -11,6 +11,7 @@ import RxCocoa
 
 extension ViewController {
     func rx() {
+
         let emailValidate = myView.emailTextField.rx.text.orEmpty.map {
             Self.validateEmail($0)
         }
@@ -38,19 +39,19 @@ extension ViewController {
             .disposed(by: disposeBag)
         
         emailValidate.subscribe { [unowned self] event in
-            if self.myView.emailTextField.isEditing {
+            if self.myView.emailTextField.isFirstResponder {
                 self.myView.emailTextField.layer.borderColor = event.element! ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
             }
         }.disposed(by: disposeBag)
         
         fullNameValidate.subscribe { [unowned self] event in
-            if self.myView.fullNameTextField.isEditing {
+            if self.myView.fullNameTextField.isFirstResponder {
                 self.myView.fullNameTextField.layer.borderColor = event.element! ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
             }
         }.disposed(by: disposeBag)
         
         dateValidate.subscribe { [unowned self] event in
-            if self.myView.dateTextField.isEditing {
+            if self.myView.dateTextField.isFirstResponder {
                 self.myView.dateTextField.layer.borderColor = event.element! ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
             }
         }.disposed(by: disposeBag)
