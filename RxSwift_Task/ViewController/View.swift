@@ -37,10 +37,10 @@ class View: UIView {
     private func setupViews() {
         scrollView = {
             let scrollView = UIScrollView()
-            scrollView.showsVerticalScrollIndicator = false
+//            scrollView.showsVerticalScrollIndicator = false
             scrollView.keyboardDismissMode = .onDrag
             scrollView.alwaysBounceVertical = true
-            scrollView.contentInsetAdjustmentBehavior = .never
+//            scrollView.contentInsetAdjustmentBehavior = .never
             return scrollView
         }()
         
@@ -51,7 +51,8 @@ class View: UIView {
         
         bigTextLabel = {
             let label = UILabel()
-            label.text = "TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT"
+            label.text = String(repeating: "Text ", count: 300)
+            label.font = .systemFont(ofSize: 20)
             label.numberOfLines = 0
             return label
         }()
@@ -122,16 +123,14 @@ class View: UIView {
         
         addSubview(scrollView)
         scrollView.addSubview(containerView)
-        containerView.addSubview(bigTextLabel)
         containerView.addSubview(stackView)
-        
+
+        stackView.addArrangedSubview(bigTextLabel)
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(fullNameTextField)
         stackView.addArrangedSubview(dateTextField)
         stackView.addArrangedSubview(toggle)
-        
-        containerView.addSubview(nextButton)
-
+        stackView.addArrangedSubview(nextButton)
     }
     
     private func setConstraints() {
@@ -141,27 +140,21 @@ class View: UIView {
         
         containerView.snp.makeConstraints { make in
             make.edges.width.equalToSuperview()
-            make.height.greaterThanOrEqualTo(scrollView.frameLayoutGuide)
+            make.height.greaterThanOrEqualTo(scrollView.contentLayoutGuide)
         }
         
-        bigTextLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(stackView.snp.top)
-        }
+//        bigTextLabel.snp.makeConstraints { make in
+//            make.top.equalToSuperview()
+//            make.leading.trailing.equalToSuperview()
+//            make.bottom.equalTo(stackView.snp.top)
+//        }
         
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(12)
             make.trailing.equalTo(-12)
-            make.height.greaterThanOrEqualTo(110)
+            make.height.greaterThanOrEqualToSuperview()
         }
-        
-        nextButton.snp.makeConstraints { make in
-            make.leading.equalTo(12)
-            make.trailing.equalTo(-12)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(30)
-        }
+
     }
 
 }

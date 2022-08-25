@@ -19,6 +19,8 @@ extension ViewController {
         let fullNameValidate = myView.fullNameTextField.rx.text.orEmpty.map {
             Self.validateFullName($0)
         }
+
+        let text = myView.dateTextField.rx.controlEvent(.editingDidBegin)
         
         let dateValidate = datePicker.rx.date.map {
             Self.validateDate($0)
@@ -29,31 +31,38 @@ extension ViewController {
         let dateChange = datePicker.rx.date.map {
             Self.formatter($0)
         }
-        
+
         Observable.combineLatest(emailValidate, fullNameValidate, dateValidate, toggleValidate)
             .map { $0 && $1 && $2 && $3}
             .bind(to: myView.nextButton.rx.isEnabled)
             .disposed(by: disposeBag)
-        
-        dateChange.bind(to: myView.dateTextField.rx.text)
+
+        dateChange.bind(to: myView.dateTextField.rx.text.orEmpty)
             .disposed(by: disposeBag)
-        
-        emailValidate.subscribe { [unowned self] event in
-            if self.myView.emailTextField.isFirstResponder {
-                self.myView.emailTextField.layer.borderColor = event.element! ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
+
+        emailValidate.subscribe(onNext: { [weak self] event in
+            guard let self = self else { return }
+            if self.myView.emailTextField.isEditing {
+                self.myView.emailTextField.layer.borderColor = event ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
             }
-        }.disposed(by: disposeBag)
-        
-        fullNameValidate.subscribe { [unowned self] event in
-            if self.myView.fullNameTextField.isFirstResponder {
-                self.myView.fullNameTextField.layer.borderColor = event.element! ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
+        })
+        .disposed(by: disposeBag)
+
+        fullNameValidate.subscribe(onNext: { [weak self] event in
+            guard let self = self else { return }
+            if self.myView.fullNameTextField.isEditing {
+                self.myView.fullNameTextField.layer.borderColor = event ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
             }
-        }.disposed(by: disposeBag)
-        
-        dateValidate.subscribe { [unowned self] event in
-            if self.myView.dateTextField.isFirstResponder {
-                self.myView.dateTextField.layer.borderColor = event.element! ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
-            }
-        }.disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
+
+        Observable.merge(dateValidate, myView.dateTextField.rx.controlEvent(.editingDidBegin).withLatestFrom(dateValidate))
+            .subscribe(onNext: { [weak self] event in
+                guard let self = self else { return }
+                if self.myView.dateTextField.isEditing {
+                    self.myView.dateTextField.layer.borderColor = event ? CGColor.init(red: 0, green: 1, blue: 0, alpha: 1) : CGColor.init(red: 1, green: 0, blue: 0, alpha: 1)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
