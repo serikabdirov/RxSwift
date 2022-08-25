@@ -20,7 +20,7 @@ extension ViewController {
             Self.validateFullName($0)
         }
 
-        let text = myView.dateTextField.rx.controlEvent(.editingDidBegin)
+        let dateTextFieldBeginEditing = myView.dateTextField.rx.controlEvent(.editingDidBegin)
         
         let dateValidate = datePicker.rx.date.map {
             Self.validateDate($0)
@@ -56,7 +56,10 @@ extension ViewController {
         })
         .disposed(by: disposeBag)
 
-        Observable.merge(dateValidate, myView.dateTextField.rx.controlEvent(.editingDidBegin).withLatestFrom(dateValidate))
+        Observable.merge(
+            dateValidate,
+            dateTextFieldBeginEditing.withLatestFrom(dateValidate)
+        )
             .subscribe(onNext: { [weak self] event in
                 guard let self = self else { return }
                 if self.myView.dateTextField.isEditing {
